@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Project - Detail View</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for the project detail flow */
+        .step-container {
+            border-left: 4px solid #007bff;
+            margin-left: 20px;
+            padding-left: 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            left: -34px;
+            top: 0;
+            background-color: #007bff;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+        }
+        .detail-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #666;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section" style="padding-top: 20px;">
+            <a href="/" class="back-btn">← Back to Portfolio</a>
+            
+            <h1 style="font-size: 2.5em; color: #007bff;">IoT Smart Home System</h1>
+            <p><strong>Project Overview:</strong> A complete end-to-end IoT solution allowing remote monitoring and control of home appliances using a Raspberry Pi gateway and custom ESP32 nodes.</p>
+
+            <div class="section">
+                <h2>Development Process</h2>
+                
+                <div class="step-container">
+                    <div class="step-number">1</div>
+                    <h3>User Interface Design (UI/UX)</h3>
+                    <p>Before coding, I designed the control dashboard to ensure a user-friendly experience. The goal was to create a clean interface for monitoring temperature, humidity, and toggling lights.</p>
+                    <ul>
+                        <li><strong>Tools used:</strong> Figma, HTML5, CSS3.</li>
+                        <li><strong>Focus:</strong> Responsive design for both mobile and desktop usage.</li>
+                    </ul>
+                    <img src="components/wireframe.png" alt="Screenshot of the Web Interface Dashboard" class="detail-img">
+                </div>
+
+                <div class="step-container">
+                    <div class="step-number">2</div>
+                    <h3>Schematic & Circuit Design</h3>
+                    <p>I designed the hardware connections to ensure safety and signal integrity. The system uses relays for high-voltage control and sensors for data collection.</p>
+                    <ul>
+                        <li><strong>Microcontroller:</strong> ESP32 (for WiFi connectivity).</li>
+                        <li><strong>Software:</strong> Altium Designer / KiCad.</li>
+                        <li><strong>Key Components:</strong> DHT11 Sensor, 5V Relay Module, Optocouplers for isolation.</li>
+                    </ul>
+                    <img src="components/cruit.png" alt="Circuit Diagram of the system" class="detail-img">
+                </div>
+
+                <div class="step-container">
+                    <div class="step-number">3</div>
+                    <h3>Product Fabrication & Assembly</h3>
+                    <p>The final stage involved soldering components onto a perfboard, 3D printing the enclosure, and wiring everything together for the final deployment.</p>
+                    <ul>
+                        <li><strong>Enclosure:</strong> Custom 3D printed case (PLA material).</li>
+                        <li><strong>Wiring:</strong> Structured cabling to prevent short circuits.</li>
+                        <li><strong>Testing:</strong> Stress tested for 48 hours continuous operation.</li>
+                    </ul>
+                    <img src="components/team.jpg" alt="Photo of the finished hardware product" class="detail-img">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Outcome</h2>
+                <p>The system successfully reduced energy consumption by 15% through automated scheduling and allowed for reliable remote control via the local network.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Do Tung Thanh. <a href="/">Home</a></p>
+        </div>
+    </div>
+</body>
+</html>
