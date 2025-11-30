@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Tung Thanh Do</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Tung Thanh Do</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="messages.html">Messages</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Messages Received</h1>
+        <p>All messages submitted through the contact form are saved here.</p>
+
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <button id="export-messages" style="background:#007bff; color:#fff; padding:10px 20px; border-radius:6px; border:none; cursor:pointer;">Export as JSON</button>
+            <button id="clear-all-messages" style="background:#dc3545; color:#fff; padding:10px 20px; border-radius:6px; border:none; cursor:pointer;">Clear All</button>
+        </div>
+
+        <div id="messages-container" style="max-width:900px;">
+            <!-- Messages will be loaded here by script.js -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Do Tung Thanh. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messagesKey = 'contact_messages_v1';
+            const container = document.getElementById('messages-container');
+            const exportBtn = document.getElementById('export-messages');
+            const clearBtn = document.getElementById('clear-all-messages');
+
+            function loadMessages(){
+                try{
+                    const raw = localStorage.getItem(messagesKey);
+                    const messages = raw ? JSON.parse(raw) : [];
+                    
+                    if (messages.length === 0){
+                        container.innerHTML = '<p style="color:#999; text-align:center; padding:40px;">No messages yet.</p>';
+                        return;
+                    }
+
+                    container.innerHTML = messages.map((msg, idx) => `
+                        <div style="background:#fff; border:1px solid #ddd; border-radius:8px; padding:20px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                            <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:10px;">
+                                <div>
+                                    <h3 style="margin:0; color:#007bff;">${escapeHtml(msg.name)}</h3>
+                                    <p style="margin:5px 0; color:#666; font-size:0.9rem;">${escapeHtml(msg.email)}</p>
+                                </div>
+                                <span style="color:#999; font-size:0.85rem;">${new Date(msg.timestamp).toLocaleString()}</span>
+                            </div>
+                            <p style="margin:10px 0; color:#333; line-height:1.6;">${escapeHtml(msg.message)}</p>
+                            <button onclick="deleteMessage(${idx})" style="background:#eee; color:#333; padding:6px 12px; border:1px solid #ddd; border-radius:4px; cursor:pointer; font-size:0.9rem;">Delete</button>
+                        </div>
+                    `).join('');
+                }catch(e){ 
+                    console.warn('Load messages failed', e);
+                    container.innerHTML = '<p style="color:#c33;">Error loading messages.</p>';
+                }
+            }
+
+            window.deleteMessage = function(idx){
+                if (!confirm('Delete this message?')) return;
+                try{
+                    const raw = localStorage.getItem(messagesKey);
+                    let messages = raw ? JSON.parse(raw) : [];
+                    messages.splice(idx, 1);
+                    localStorage.setItem(messagesKey, JSON.stringify(messages));
+                    loadMessages();
+                }catch(e){ console.warn('Delete failed', e); }
+            };
+
+            exportBtn.addEventListener('click', ()=>{
+                try{
+                    const raw = localStorage.getItem(messagesKey);
+                    const messages = raw ? JSON.parse(raw) : [];
+                    const json = JSON.stringify(messages, null, 2);
+                    const blob = new Blob([json], {type:'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'messages_' + new Date().toISOString().split('T')[0] + '.json';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }catch(e){ console.warn('Export failed', e); }
+            });
+
+            clearBtn.addEventListener('click', ()=>{
+                if (!confirm('Delete ALL messages? This cannot be undone.')) return;
+                localStorage.removeItem(messagesKey);
+                loadMessages();
+            });
+
+            function escapeHtml(text){
+                const map = {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":"&#039;"};
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
+
+            loadMessages();
+        });
+    </script>
+</body>
+</html>

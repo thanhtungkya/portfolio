@@ -15,12 +15,22 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html" class="active">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="messages.html">Messages</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
         <h1>Featured Projects</h1>
+        <div class="projects-controls" style="margin-bottom:18px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <input id="project-search" type="search" placeholder="Search projects..." aria-label="Search projects" style="flex:1; padding:10px; border-radius:8px; border:1px solid #ddd; max-width:420px;">
+            <select id="project-filter" aria-label="Filter projects" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                <option value="all">All</option>
+                <option value="iot">IoT</option>
+                <option value="linux">Linux</option>
+                <option value="security">Security</option>
+            </select>
+        </div>
         <div class="project-grid">
             
             <article class="project-card">
@@ -28,6 +38,7 @@
                 <div class="card-body">
                     <h3>IoT Smart Home System</h3>
                     <p>A comprehensive system for real-time monitoring and control of appliances using Raspberry Pi and ESP32.</p>
+                    <p class="proj-tags" style="margin:6px 0; font-size:0.9rem; color:#666">Tags: <span>iot</span>, <span>raspberry-pi</span></p>
                     <a href="/smart_home.html" class="btn">Details</a>
                 </div>
             </article>
@@ -37,6 +48,7 @@
                 <div class="card-body">
                     <h3>Linux Device Driver</h3>
                     <p>Custom kernel module development for interfacing with hardware peripherals in embedded Linux environments.</p>
+                    <p class="proj-tags" style="margin:6px 0; font-size:0.9rem; color:#666">Tags: <span>linux</span>, <span>kernel</span></p>
                     <a href="#" class="btn">Details</a>
                 </div>
             </article>
@@ -46,6 +58,7 @@
                 <div class="card-body">
                     <h3>Zero Trust Architecture</h3>
                     <p>Research and implementation of Zero Trust security models applied to IoT network infrastructures.</p>
+                    <p class="proj-tags" style="margin:6px 0; font-size:0.9rem; color:#666">Tags: <span>security</span>, <span>iot</span></p>
                     <a href="#" class="btn">Details</a>
                 </div>
             </article>
@@ -56,5 +69,6 @@
     <footer>
         <p>© 2024 Do Tung Thanh. All rights reserved.</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
